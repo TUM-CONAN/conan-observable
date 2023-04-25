@@ -21,7 +21,7 @@ class observableConan(ConanFile):
     url = "https://github.com/TUM-CONAN/conan-observable"
     description = "c++ observable properties"
     topics = ("Pattern", "Architecture")
-    
+
     settings = "os", "compiler", "build_type", "arch"
     options = {
          "shared": [True, False],
@@ -48,7 +48,6 @@ class observableConan(ConanFile):
         for option, value in self.options.items():
             add_cmake_option(option, value)
 
-        import pdb;pdb.set_trace()
         tc.generate()
 
         deps = CMakeDeps(self)
