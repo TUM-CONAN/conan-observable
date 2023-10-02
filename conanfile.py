@@ -17,7 +17,7 @@ class observableConan(ConanFile):
     version = _version+revision
 
     license = "Apache-2.0"
-    homepage = "https://github.com/ddinu/observable"
+    homepage = "https://github.com/ulricheck/observable"
     url = "https://github.com/TUM-CONAN/conan-observable"
     description = "c++ observable properties"
     topics = ("Pattern", "Architecture")
@@ -32,8 +32,22 @@ class observableConan(ConanFile):
         "fPIC": True
     }
 
+    def export(self):
+        update_conandata(self, {"sources": {
+            "commit": "master",  #"{}".format(self.version),
+            "url": "https://github.com/ulricheck/observable.git"
+            }}
+            )
+
     def source(self):
-        get(self, "https://github.com/ddinu/observable/archive/refs/heads/master.tar.gz",
+        git = Git(self)
+        sources = self.conan_data["sources"]
+        git.clone(url=sources["url"], target=self.source_folder)
+        git.checkout(commit=sources["commit"])
+
+
+    def source(self):
+        get(self, "https://github.com/ulricheck/observable/archive/refs/heads/master.tar.gz",
             strip_root=True)
 
     def generate(self):
