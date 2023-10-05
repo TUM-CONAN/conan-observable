@@ -78,6 +78,7 @@ class observableConan(ConanFile):
     def package(self):
         cmake = CMake(self)
         cmake.install()
+        copy(self, "*.hpp", os.path.join(self.source_folder, "observable", "include"), os.path.join(self.package_folder, "include"))
 
     def package_info(self):
         self.cpp_info.bindirs = []
