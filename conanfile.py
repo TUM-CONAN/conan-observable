@@ -62,6 +62,8 @@ class observableConan(ConanFile):
         for option, value in self.options.items():
             add_cmake_option(option, value)
 
+        tc.cache_variables["CPP_STANDARD"] = str(self.settings.compiler.cppstd)
+
         tc.generate()
 
         deps = CMakeDeps(self)
@@ -72,11 +74,11 @@ class observableConan(ConanFile):
 
     def build(self):
         #disable unneeded targets
-        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(tests)", "#add_subdirectory(tests)")
-        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(benchmark)", "#add_subdirectory(benchmark)")
-        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(docs)", "#add_subdirectory(docs)")
-        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(examples)", "#add_subdirectory(examples)")
-        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(vendor)", "#add_subdirectory(vendor)")
+        # replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(tests)", "#add_subdirectory(tests)")
+        # replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(benchmark)", "#add_subdirectory(benchmark)")
+        # replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(docs)", "#add_subdirectory(docs)")
+        # replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(examples)", "#add_subdirectory(examples)")
+        # replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(vendor)", "#add_subdirectory(vendor)")
 
         cmake = CMake(self)
         cmake.configure()
