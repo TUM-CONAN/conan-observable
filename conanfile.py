@@ -71,6 +71,13 @@ class observableConan(ConanFile):
         cmake_layout(self, src_folder="source_folder")
 
     def build(self):
+        #disable unneeded targets
+        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(tests)", "#add_subdirectory(tests)")
+        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(benchmark)", "#add_subdirectory(benchmark)")
+        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(docs)", "#add_subdirectory(docs)")
+        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(examples)", "#add_subdirectory(examples)")
+        replace_in_file(self, os.path.join(self.source_folder, "CMakeLists.txt"), "add_subdirectory(vendor)", "#add_subdirectory(vendor)")
+
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
